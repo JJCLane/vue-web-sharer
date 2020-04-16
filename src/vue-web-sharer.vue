@@ -30,13 +30,15 @@ export default {
               url: window.location.href
             })
             .then(() => {
-              console.log("Thanks for sharing!");
+              this.$emit("close");
             })
             .catch(err => {
-              console.log(`Couldn't share because of`, err.message);
+              console.info(`Couldn't share because of`, err.message);
+              this.$emit("close");
             });
         } else {
-          console.log("web share not supported");
+          // Web share not supported
+          console.info("Web share not supported");
           this.showFallback = true;
         }
       } else {
