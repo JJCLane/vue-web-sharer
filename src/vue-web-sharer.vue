@@ -101,7 +101,7 @@ export default {
               <div v-if="key !== 'native'" :key="key" class="vue-web-sharer-target">
                 <button @click="(e) => handleShare(e, key, target)" class="web-social-share-button">
                   <div class="web-social-share-button-icon">
-                    <slot name="{slotName}"></slot>
+                    <slot :name="key"></slot>
                   </div>
                   <p v-if="displayNames">{{renderBrandName(target, key)}}</p>
                 </button>
