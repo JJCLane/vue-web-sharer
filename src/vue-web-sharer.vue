@@ -5,6 +5,14 @@ export default {
     open: {
       type: Boolean,
       default: false
+    },
+    displayNames: {
+      type: Boolean,
+      default: true
+    },
+    config: {
+      type: Object,
+      default: []
     }
   },
   data() {
@@ -16,19 +24,51 @@ export default {
   methods: {
     hide() {
       this.$emit("close");
+    },
+    handleShare(e, target, attributes) {
+      console.log(target, attributes);
+    },
+    renderBrandName(attributes, defaultName) {
+      if (!this.displayNames) return "";
+      if (attributes.brandName) {
+        return attributes.brandName;
+      }
+      return defaultName;
+    },
+    handleKeyUp(evt) {
+      if (evt.keyCode === 27 && this.open) {
+        this.hide();
+      }
     }
+  },
+  mounted() {
+    document.addEventListener("keyup", this.handleKeyUp);
+  },
+  beforeDestroy() {
+    document.removeEventListener("keyup", this.handleKeyUp);
   },
   watch: {
     open(val) {
       if (val) {
-        if (navigator.share) {
+        if (navigator.share && this.config.native) {
+          const {
+            socialShareTitle,
+            socialShareText,
+            socialShareUrl
+          } = this.config.native;
+
+          let options = {};
+          if (socialShareUrl) {
+            options.url = socialShareUrl;
+          }
+          if (socialShareTitle) {
+            options.title = socialShareTitle;
+          }
+          if (socialShareText) {
+            options.text = socialShareText;
+          }
           navigator
-            .share({
-              title: "My awesome post!",
-              text:
-                "This post may or may not contain the answer to the universe",
-              url: window.location.href
-            })
+            .share(options)
             .then(() => {
               this.$emit("close");
             })
@@ -51,14 +91,22 @@ export default {
 
 <template>
   <transition name="fade">
-    <div v-if="showFallback" :class="['vue-web-sharer', ]">
-      <div class="vue-web-sharer-backdrop" @click="() => this.hide()"></div>
+    <div v-if="showFallback" :class="['vue-web-sharer']" tabindex="0" @keypress.esc="hide">
+      <div class="vue-web-sharer-backdrop" @click="() => hide()"></div>
 
-      <div class="vue-web-sharer-action-sheet" @click="() => this.hide()">
+      <div class="vue-web-sharer-action-sheet" @click="() => hide()">
         <div class="vue-web-sharer-action-sheet-container">
           <div class="vue-web-sharer-action-sheet-group">
-            <p class="vue-web-sharer-target">Test</p>
-            <p class="vue-web-sharer-target">Facebook</p>
+            <template v-for="(target, key) in config">
+              <div v-if="key !== 'native'" :key="key" class="vue-web-sharer-target">
+                <button @click="(e) => handleShare(e, key, target)" class="web-social-share-button">
+                  <div class="web-social-share-button-icon">
+                    <slot name="{slotName}"></slot>
+                  </div>
+                  <p v-if="displayNames">{{renderBrandName(target, key)}}</p>
+                </button>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -130,6 +178,8 @@ export default {
     height: var(--vue-web-sharer-button-height, 100%);
 
     font-size: var(--vue-web-sharer-button-font-size);
+
+    text-transform: capitalize;
   }
 
   & p {

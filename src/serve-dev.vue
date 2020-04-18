@@ -8,8 +8,35 @@ export default Vue.extend({
     VueWebSharer
   },
   data() {
+    const shareUrl = document.location.href;
     return {
-      open: false
+      open: false,
+      config: {
+        native: {
+          socialShareTitle: "Read this!",
+          socialShareText: "This is an awesome website",
+          socialShareUrl: shareUrl
+        },
+        email: {
+          brandName: "Email",
+          socialShareBody: shareUrl
+        },
+        facebook: {
+          socialShareUrl: shareUrl
+        },
+        twitter: {
+          socialShareUrl: shareUrl
+        },
+        linkedIn: {
+          socialShareUrl: shareUrl
+        },
+        whatsApp: {
+          socialShareUrl: shareUrl
+        },
+        copy: {
+          socialShareUrl: shareUrl
+        }
+      }
     };
   },
   methods: {
@@ -26,6 +53,6 @@ export default Vue.extend({
 <template>
   <div id="app">
     <button @click="openSharer">Click me</button>
-    <vue-web-sharer :open="open" @close="closeSharer" />
+    <vue-web-sharer :open="open" :displayNames="true" :config="config" @close="closeSharer" />
   </div>
 </template>
