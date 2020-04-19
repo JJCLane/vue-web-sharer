@@ -132,4 +132,20 @@ export default class Sharer {
         }
     }
 
+    static linkedIn(attrs) {
+        const { popupWidth, popupHeight } = attrs;
+        delete attrs.popupWidth;
+        delete attrs.popupHeight;
+        const curPopupWidth = popupWidth ? popupWidth : POPUP_WIDTH;
+        const curPopupHeight = popupHeight ? popupHeight : POPUP_HEIGHT;
+        let urlString = 'https://www.linkedin.com/shareArticle?mini=true&';
+
+        urlString += this.paramsToUrl(attrs);
+
+        window.open(
+            urlString,
+            'Linkedin', 'toolbar=0,status=0,resizable=yes,width=' + curPopupWidth + ',height=' + curPopupHeight
+            + ',top=' + (window.innerHeight - curPopupHeight) / 2 + ',left=' + (window.innerWidth - curPopupWidth) / 2);
+    }
+
 }

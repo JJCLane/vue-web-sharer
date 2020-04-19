@@ -8,7 +8,7 @@ export default Vue.extend({
     VueWebSharer
   },
   data() {
-    const shareUrl = document.location.href;
+    const shareUrl = "https://www.google.com";
     return {
       open: false,
       config: {
@@ -41,7 +41,10 @@ export default Vue.extend({
           via: "Livefreshr"
         },
         linkedIn: {
-          url: shareUrl
+          url: shareUrl,
+          title: "Keep it fresh",
+          summary: "Awesome website",
+          source: "Livefreshr"
         },
         whatsApp: {
           url: shareUrl
