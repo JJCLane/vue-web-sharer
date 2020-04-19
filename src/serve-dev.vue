@@ -35,7 +35,10 @@ export default Vue.extend({
           popupHeight: 400
         },
         twitter: {
-          url: shareUrl
+          url: shareUrl,
+          text: "Keep it fresh",
+          hashtags: "freshmadeeasy",
+          via: "Livefreshr"
         },
         linkedIn: {
           url: shareUrl
