@@ -1,4 +1,6 @@
 <script>
+import Sharer from "./Sharer";
+
 export default {
   name: "VueWebSharer",
   props: {
@@ -27,6 +29,9 @@ export default {
     },
     handleShare(e, target, attributes) {
       console.log(target, attributes);
+      if (typeof Sharer[target] === "function") {
+        Sharer[target](attributes);
+      }
     },
     renderBrandName(attributes, defaultName) {
       if (!this.displayNames) return "";

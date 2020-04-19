@@ -19,22 +19,26 @@ export default Vue.extend({
         },
         email: {
           brandName: "Email",
-          socialShareBody: shareUrl
+          body: `Check out this awesome website: ${shareUrl}`,
+          to: "test@test.com",
+          cc: "info@company.com",
+          bcc: "hidden@email.com",
+          subject: "The subject line"
         },
         facebook: {
-          socialShareUrl: shareUrl
+          url: shareUrl
         },
         twitter: {
-          socialShareUrl: shareUrl
+          url: shareUrl
         },
         linkedIn: {
-          socialShareUrl: shareUrl
+          url: shareUrl
         },
         whatsApp: {
-          socialShareUrl: shareUrl
+          url: shareUrl
         },
         copy: {
-          socialShareUrl: shareUrl
+          url: shareUrl
         }
       }
     };
