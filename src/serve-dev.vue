@@ -47,6 +47,7 @@ export default Vue.extend({
           source: "Livefreshr"
         },
         whatsApp: {
+          text: "Keep it freshr ",
           url: shareUrl
         },
         copy: {

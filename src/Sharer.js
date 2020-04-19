@@ -3,7 +3,7 @@ const POPUP_WIDTH = 600;
 const POPUP_HEIGHT = 400;
 
 export default class Sharer {
-
+    /* Helpers */
     static staticOpenNewWindow(urlString) {
         if (window.self !== window.top) {
             window.open(urlString, '_blank');
@@ -36,6 +36,7 @@ export default class Sharer {
         return includeParamSymbol ? url : url.substring(1);
     }
 
+    /* Providers */
     static email(attrs) {
         const { to } = attrs;
         delete attrs.to;
@@ -146,6 +147,32 @@ export default class Sharer {
             urlString,
             'Linkedin', 'toolbar=0,status=0,resizable=yes,width=' + curPopupWidth + ',height=' + curPopupHeight
             + ',top=' + (window.innerHeight - curPopupHeight) / 2 + ',left=' + (window.innerWidth - curPopupWidth) / 2);
+    }
+
+    static whatsApp(attrs) {
+        const { url, popupWidth, popupHeight } = attrs;
+        delete attrs.url;
+        delete attrs.popupWidth;
+        delete attrs.popupHeight;
+        const curPopupWidth = popupWidth ? popupWidth : POPUP_WIDTH;
+        const curPopupHeight = popupHeight ? popupHeight : POPUP_HEIGHT;
+        const isMobile = this.isMobile();
+        let urlString = 'https://wa.me/?';
+
+        urlString += this.paramsToUrl(attrs);
+
+        if (url) {
+            urlString += encodeURIComponent(url);
+        }
+
+        if (isMobile) {
+            this.staticOpenNewWindow(urlString);
+        } else {
+            window.open(
+                urlString,
+                'WhatsApp', 'toolbar=0,status=0,resizable=yes,width=' + curPopupWidth + ',height=' + curPopupHeight
+                + ',top=' + (window.innerHeight - curPopupHeight) / 2 + ',left=' + (window.innerWidth - curPopupWidth) / 2);;
+        }
     }
 
 }
