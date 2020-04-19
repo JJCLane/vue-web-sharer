@@ -56,21 +56,17 @@ export default {
     open(val) {
       if (val) {
         if (navigator.share && this.config.native) {
-          const {
-            socialShareTitle,
-            socialShareText,
-            socialShareUrl
-          } = this.config.native;
+          const { title, text, url } = this.config.native;
 
           let options = {};
-          if (socialShareUrl) {
-            options.url = socialShareUrl;
+          if (url) {
+            options.url = url;
           }
-          if (socialShareTitle) {
-            options.title = socialShareTitle;
+          if (title) {
+            options.title = title;
           }
-          if (socialShareText) {
-            options.text = socialShareText;
+          if (text) {
+            options.text = text;
           }
           navigator
             .share(options)

@@ -13,9 +13,7 @@ export default Vue.extend({
       open: false,
       config: {
         native: {
-          socialShareTitle: "Read this!",
-          socialShareText: "This is an awesome website",
-          socialShareUrl: shareUrl
+          url: shareUrl
         },
         email: {
           brandName: "Email",
