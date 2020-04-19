@@ -13,6 +13,8 @@ export default Vue.extend({
       open: false,
       config: {
         native: {
+          title: "Read this!",
+          text: "This is an awesome website",
           url: shareUrl
         },
         email: {
@@ -24,7 +26,13 @@ export default Vue.extend({
           subject: "The subject line"
         },
         facebook: {
-          url: shareUrl
+          appId: 123456,
+          redirectUri: "https://google.com",
+          // to: 123456,
+          // source: "link.mp3",
+          url: shareUrl,
+          popupWidth: 600,
+          popupHeight: 400
         },
         twitter: {
           url: shareUrl
