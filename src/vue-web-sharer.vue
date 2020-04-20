@@ -132,7 +132,7 @@ export default {
   }
 
   & .vue-web-sharer-action-sheet-group {
-    height: 0;
+    transform: translate3d(0, 100%, 0);
   }
 }
 
@@ -160,7 +160,6 @@ export default {
 }
 
 .vue-web-sharer-target {
-  margin: auto;
   width: var(--vue-web-sharer-target-width, 4rem);
   height: var(--vue-web-sharer-target-height, 3rem);
 
@@ -237,21 +236,19 @@ export default {
   transform: translate3d(0, 0, 10px);
 
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
 
-  height: var(--vue-web-sharer-height, 80px);
-
+  padding: 0.5rem 0px;
+  transform: translate3d(0, 0%, 0);
   transition-timing-function: cubic-bezier(0.36, 0.66, 0.04, 1);
-  transition: height 0.2s;
+  transition: transform 0.2s;
 
   @media (max-width: 540px) {
     border-radius: var(
       --vue-web-sharer-action-sheet-group-border-radius,
       8px 8px 0 0
     );
-    justify-content: flex-start;
-    height: var(--vue-web-sharer-height-small-device, 140px);
   }
 }
 </style>
