@@ -8,56 +8,64 @@ export default Vue.extend({
     VueWebSharer
   },
   data() {
-    const shareUrl = "https://www.google.com";
     return {
-      open: false,
-      config: {
-        native: {
-          title: "Read this!",
-          text: "This is an awesome website",
-          url: shareUrl
-        },
-        email: {
-          brandName: "Email",
-          body: `Check out this awesome website: ${shareUrl}`,
-          to: "test@test.com",
-          cc: "info@company.com",
-          bcc: "hidden@email.com",
-          subject: "The subject line"
-        },
-        facebook: {
-          appId: 123456,
-          redirectUri: "https://google.com",
-          // to: 123456,
-          // source: "link.mp3",
-          url: shareUrl,
-          popupWidth: 600,
-          popupHeight: 400
-        },
-        twitter: {
-          url: shareUrl,
-          text: "Keep it fresh",
-          hashtags: "freshmadeeasy",
-          via: "Livefreshr"
-        },
-        linkedIn: {
-          url: shareUrl,
-          title: "Keep it fresh",
-          summary: "Awesome website",
-          source: "Livefreshr"
-        },
-        whatsApp: {
-          text: "Keep it freshr ",
-          url: shareUrl
-        },
-        copy: {
-          url: shareUrl
-        }
+      open: false
+    };
+  },
+  created() {
+    const shareUrl = "https://www.google.com";
+    this.config = {
+      native: {
+        title: "Read this!",
+        text: "This is an awesome website",
+        url: shareUrl
+      },
+      email: {
+        brandName: "Email",
+        body: `Check out this awesome website: ${shareUrl}`,
+        to: "test@test.com",
+        cc: "info@company.com",
+        bcc: "hidden@email.com",
+        subject: "The subject line"
+      },
+      facebook: {
+        appId: 123456,
+        redirectUri: "https://google.com",
+        // to: 123456,
+        // source: "link.mp3",
+        url: shareUrl,
+        popupWidth: 600,
+        popupHeight: 400
+      },
+      twitter: {
+        url: shareUrl,
+        text: "Keep it fresh",
+        hashtags: "freshmadeeasy",
+        via: "Livefreshr"
+      },
+      linkedIn: {
+        url: shareUrl,
+        title: "Keep it fresh",
+        summary: "Awesome website",
+        source: "Livefreshr"
+      },
+      whatsApp: {
+        text: "Keep it freshr ",
+        url: shareUrl
+      },
+      copy: {
+        url: shareUrl
       }
     };
   },
   methods: {
     openSharer() {
+      /**
+       * We have to do this to satisfy iOS
+       * security permissions due to the share having to be
+       * called from an input event when consumed from an NPM package
+       */
+      this.$refs.sharer.openShare();
       this.open = true;
     },
     closeSharer() {
@@ -70,7 +78,13 @@ export default Vue.extend({
 <template>
   <div id="app">
     <button @click="openSharer">Click me</button>
-    <vue-web-sharer :open="open" :displayNames="true" :config="config" @close="closeSharer">
+    <vue-web-sharer
+      :open="open"
+      :displayNames="true"
+      :config="config"
+      @close="closeSharer"
+      ref="sharer"
+    >
       <svg
         class="block"
         xmlns="http://www.w3.org/2000/svg"

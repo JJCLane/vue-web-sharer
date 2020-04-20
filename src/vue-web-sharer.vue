@@ -84,9 +84,7 @@ export default {
   },
   watch: {
     open(val) {
-      if (val) {
-        this.openShare();
-      } else {
+      if (!val) {
         this.showFallback = false;
       }
     }
