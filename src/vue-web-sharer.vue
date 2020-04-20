@@ -34,6 +34,35 @@ export default {
         Sharer[target](attributes);
       }
     },
+    openShare() {
+      if (navigator.share && this.config.native) {
+        const { title, text, url } = this.config.native;
+
+        let options = {};
+        if (url) {
+          options.url = url;
+        }
+        if (title) {
+          options.title = title;
+        }
+        if (text) {
+          options.text = text;
+        }
+        navigator
+          .share(options)
+          .then(() => {
+            this.$emit("close");
+          })
+          .catch(err => {
+            console.info(`Couldn't share because of`, err.message);
+            this.$emit("close");
+          });
+      } else {
+        // Web share not supported
+        console.info("Web share not supported");
+        this.showFallback = true;
+      }
+    },
     renderBrandName(attributes, defaultName) {
       if (!this.displayNames) return "";
       if (attributes.brandName) {
@@ -56,33 +85,7 @@ export default {
   watch: {
     open(val) {
       if (val) {
-        if (navigator.share && this.config.native) {
-          const { title, text, url } = this.config.native;
-
-          let options = {};
-          if (url) {
-            options.url = url;
-          }
-          if (title) {
-            options.title = title;
-          }
-          if (text) {
-            options.text = text;
-          }
-          navigator
-            .share(options)
-            .then(() => {
-              this.$emit("close");
-            })
-            .catch(err => {
-              console.info(`Couldn't share because of`, err.message);
-              this.$emit("close");
-            });
-        } else {
-          // Web share not supported
-          console.info("Web share not supported");
-          this.showFallback = true;
-        }
+        this.openShare();
       } else {
         this.showFallback = false;
       }
