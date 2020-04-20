@@ -28,7 +28,6 @@ export default {
       this.$emit("close");
     },
     handleShare(e, target, attributes) {
-      console.log(target, attributes);
       if (typeof Sharer[target] === "function") {
         Sharer[target](attributes);
       }
@@ -100,8 +99,11 @@ export default {
           <div class="vue-web-sharer-action-sheet-group">
             <template v-for="(target, key) in config">
               <div v-if="key !== 'native'" :key="key" class="vue-web-sharer-target">
-                <button @click="(e) => handleShare(e, key, target)" class="web-social-share-button">
-                  <div class="web-social-share-button-icon">
+                <button
+                  @click="(e) => handleShare(e, key, target)"
+                  class="vue-web-sharer-share-button"
+                >
+                  <div class="vue-web-sharer-share-button-icon">
                     <slot :name="key"></slot>
                   </div>
                   <p v-if="displayNames">{{renderBrandName(target, key)}}</p>
@@ -115,7 +117,7 @@ export default {
   </transition>
 </template>
 
-<style lang="postcss">
+<style lang="scss">
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;
