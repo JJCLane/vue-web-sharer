@@ -1,6 +1,6 @@
 {
   "name": "vue-web-sharer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple, lightweight Vue component to render a sharing actionsheet if the native share is unavailable",
   "keywords": [
     "vue",
