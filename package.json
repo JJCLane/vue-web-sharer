@@ -1,7 +1,23 @@
 {
   "name": "vue-web-sharer",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.1",
+  "description": "A simple, lightweight Vue component to render a sharing actionsheet if the native share is unavailable",
+  "keywords": [
+    "vue",
+    "share",
+    "social",
+    "web",
+    "native"
+  ],
+  "author": {
+    "name": "Jordan Lane",
+    "email": "jordanlane@hotmail.co.uk",
+    "url": "https://jordanlane.me"
+  },
+  "license": "GPL-3.0-only",
+  "repository": {
+    "url": "https://github.com/JJCLane/vue-web-sharer"
+  },
   "main": "dist/vue-web-sharer.ssr.js",
   "browser": "dist/vue-web-sharer.esm.js",
   "module": "dist/vue-web-sharer.esm.js",
