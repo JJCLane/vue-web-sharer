@@ -24,10 +24,12 @@ export default {
   },
   computed: {},
   methods: {
-    hide() {
+    hide(e) {
+      if (e && e.target != this.$refs.container) return;
       this.$emit("close");
     },
     handleShare(e, target, attributes) {
+      this.hide();
       if (typeof Sharer[target] === "function") {
         Sharer[target](attributes);
       }
@@ -94,8 +96,8 @@ export default {
     <div v-if="showFallback" :class="['vue-web-sharer']" tabindex="0" @keypress.esc="hide">
       <div class="vue-web-sharer-backdrop" @click="() => hide()"></div>
 
-      <div class="vue-web-sharer-action-sheet" @click="() => hide()">
-        <div class="vue-web-sharer-action-sheet-container">
+      <div class="vue-web-sharer-action-sheet" @click="hide">
+        <div class="vue-web-sharer-action-sheet-container" ref="container">
           <div class="vue-web-sharer-action-sheet-group">
             <template v-for="(target, key) in config">
               <div v-if="key !== 'native'" :key="key" class="vue-web-sharer-target">
@@ -137,7 +139,6 @@ export default {
 }
 
 .vue-web-sharer {
-  cursor: pointer;
   opacity: 1;
   touch-action: manipulation;
   visibility: visible;
