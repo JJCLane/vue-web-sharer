@@ -43,17 +43,17 @@ export default class Sharer {
         let urlString = 'mailto:';
 
         if (to) {
-            urlString += encodeURIComponent(to) + '?';
+            urlString += encodeURIComponent(to);
         }
 
-        urlString += this.paramsToUrl(attrs);
+        urlString += '?' + this.paramsToUrl(attrs);
 
         this.staticOpenNewWindow(urlString);
     }
 
     static copy({ url }) {
         try {
-            navigator.clipboard.writeText(url || window ? window.location.href : '');
+            navigator.clipboard.writeText(url || (window ? window.location.href : ''));
         } catch (err) {
             console.error("Copy isn't supported by this browser.");
         }
